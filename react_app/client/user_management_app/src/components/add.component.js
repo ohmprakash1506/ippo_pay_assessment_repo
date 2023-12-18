@@ -74,12 +74,12 @@ export default class AddUser extends Component {
     UserDataService.create(data)
       .then((response) => {
         this.setState({
-            name: this.data.name,
-            emailID: this.data.emailID,
-            password: this.data.password,
-            contact: this.data.contact,
-            dateOfBirth: this.data.dateOfBirth,
-            age: this.data.age,
+            name: data.name,
+            emailID: data.emailID,
+            password: data.password,
+            contact: data.contact,
+            dateOfBirth: data.dateOfBirth,
+            age: data.age,
 
           submitted: true,
         });
@@ -110,7 +110,7 @@ export default class AddUser extends Component {
         {this.state.submitted ? (
           <div>
             <h4>You have submitted successfully!</h4>
-            <button className="btn btn-success" onClick={this.newUser}>
+            <button className="btn btn-primary" onClick={this.newUser}>
               Add
             </button>
           </div>

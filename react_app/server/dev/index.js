@@ -10,7 +10,7 @@ var cors_1 = __importDefault(require("cors"));
 var body_parser_1 = __importDefault(require("body-parser"));
 require("dotenv/config");
 var corsOption = {
-    origin: "http://localhost:3000/",
+    origin: "http://localhost:3000",
 };
 var app = (0, express_1.default)();
 var port = process.env.PORT;
