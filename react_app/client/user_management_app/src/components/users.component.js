@@ -20,7 +20,7 @@ export default class UserDetails extends Component {
   }
 
   componentDidMount() {
-    this.getUser(this.props.match.params._id);
+    this.getUser(this.props.match.params.id);
   }
 
   getUser(id) {
