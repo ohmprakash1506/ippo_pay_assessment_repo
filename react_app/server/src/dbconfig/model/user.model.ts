@@ -11,11 +11,15 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: true,
     },
+    password: {
+      type: String,
+      required: true,
+    },
     contact: {
       type: String,
       required: true,
     },
-    dataOfbirth: {
+    dateOfbirth: {
       type: String,
       required: true,
     },

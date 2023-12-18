@@ -35,17 +35,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var http_status_codes_1 = __importDefault(require("http-status-codes"));
+var APIResponseHandler_1 = require("../middlewares/APIResponseHandler");
 var App = /** @class */ (function () {
     function App() {
         var _this = this;
         this.console = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var statusCode, message, statusCode, message;
             return __generator(this, function (_a) {
                 try {
-                    res.json("The Application is up and running....!");
+                    statusCode = http_status_codes_1.default.OK;
+                    message = "The Application is up and running....! and database is running in mongodb://localhost:27017/react_app";
+                    res.json((0, APIResponseHandler_1.returnSuccess)(statusCode, message));
                 }
                 catch (error) {
-                    res.json("The app is not running somthing went wrong....!");
+                    statusCode = http_status_codes_1.default.BAD_REQUEST;
+                    message = "Something went wrong ... !";
+                    res.json((0, APIResponseHandler_1.returnError)(statusCode, message));
                 }
                 return [2 /*return*/];
             });
