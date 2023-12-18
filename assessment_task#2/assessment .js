@@ -1,3 +1,8 @@
+/* You are given an integer array nums of 2 * n integers.
+ You need to partition nums into two arrays of length n to minimize the absolute difference of the sums of the arrays. 
+ To partition nums, put each element of nums into one of the two arrays.*/
+
+
 function partition(arr) {
   const arrLength = arr.length;
   if(arrLength === 0 ){
