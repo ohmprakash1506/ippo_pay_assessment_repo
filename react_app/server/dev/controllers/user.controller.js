@@ -72,8 +72,35 @@ var User = /** @class */ (function () {
                 }
             });
         }); };
+        this.userId = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var id, userData, status, message, response, error_2, message, statusCode;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        id = req.params.id;
+                        return [4 /*yield*/, userService.getUser(id).then(function (data) {
+                                return data;
+                            })];
+                    case 1:
+                        userData = _a.sent();
+                        status = http_status_codes_1.default.OK;
+                        message = "Users found successfully";
+                        response = userData;
+                        res.json((0, APIResponseHandler_1.returnSuccess)(status, message, response));
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_2 = _a.sent();
+                        message = "Error in retiving User data";
+                        statusCode = http_status_codes_1.default.BAD_REQUEST;
+                        res.json((0, APIResponseHandler_1.returnError)(statusCode, message));
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
         this.create = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var data, userData, status, message, result, error_2, status, message;
+            var data, userData, status, message, result, error_3, status, message;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -96,7 +123,7 @@ var User = /** @class */ (function () {
                         res.json((0, APIResponseHandler_1.returnSuccess)(status, message, result));
                         return [3 /*break*/, 3];
                     case 2:
-                        error_2 = _a.sent();
+                        error_3 = _a.sent();
                         status = http_status_codes_1.default.BAD_REQUEST;
                         message = "Something went wrong";
                         res.json((0, APIResponseHandler_1.returnError)(status, message));
@@ -106,7 +133,7 @@ var User = /** @class */ (function () {
             });
         }); };
         this.update = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var id, data, checkUserId, statusCode, message, updateRecord, statusCode, message, statusCode, message, response, error_3, statusCode, message;
+            var id, data, checkUserId, statusCode, message, updateRecord, statusCode, message, statusCode, message, response, error_4, statusCode, message;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -144,7 +171,7 @@ var User = /** @class */ (function () {
                         _a.label = 4;
                     case 4: return [3 /*break*/, 6];
                     case 5:
-                        error_3 = _a.sent();
+                        error_4 = _a.sent();
                         statusCode = http_status_codes_1.default.BAD_REQUEST;
                         message = "Error in updating user deatils";
                         res.json((0, APIResponseHandler_1.returnError)(statusCode, message));
@@ -154,7 +181,7 @@ var User = /** @class */ (function () {
             });
         }); };
         this.delete = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            var id, checkUserId, statusCode, message, user_1, statusCode, message, statusCode, message, response, error_4, statusCode, message;
+            var id, checkUserId, statusCode, message, user_1, statusCode, message, statusCode, message, response, error_5, statusCode, message;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -188,7 +215,7 @@ var User = /** @class */ (function () {
                         }
                         return [3 /*break*/, 4];
                     case 3:
-                        error_4 = _a.sent();
+                        error_5 = _a.sent();
                         statusCode = http_status_codes_1.default.INTERNAL_SERVER_ERROR;
                         message = "Internal server error";
                         res.json((0, APIResponseHandler_1.returnError)(statusCode, message));

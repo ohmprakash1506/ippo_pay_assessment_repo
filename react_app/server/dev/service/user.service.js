@@ -87,22 +87,22 @@ var UserService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
+                        _a.trys.push([0, 4, , 5]);
                         return [4 /*yield*/, user_model_1.default.findOne({
-                                username: data,
+                                _id: data,
                             })];
                     case 1:
                         userCheck = _a.sent();
-                        if (userCheck) {
-                            return [2 /*return*/, true];
-                        }
-                        return [3 /*break*/, 3];
-                    case 2:
+                        if (!userCheck) return [3 /*break*/, 3];
+                        return [4 /*yield*/, user_model_1.default.find({ _id: data })];
+                    case 2: return [2 /*return*/, _a.sent()];
+                    case 3: return [3 /*break*/, 5];
+                    case 4:
                         error_2 = _a.sent();
                         status = http_status_codes_1.default.BAD_REQUEST;
                         message = "Somthing went wrong";
                         return [2 /*return*/, (0, APIResponseHandler_1.returnError)(status, message)];
-                    case 3: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         }); };

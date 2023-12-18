@@ -8,6 +8,7 @@ var user_controller_1 = __importDefault(require("../controllers/user.controller"
 var user = new user_controller_1.default();
 var route = (0, express_1.Router)();
 route.get("/all", user.all);
+route.get("/user/:id", user.userId);
 route.post("/create", user.create);
 route.put("/update/:id", user.update);
 route.delete("/delete/:id", user.delete);
