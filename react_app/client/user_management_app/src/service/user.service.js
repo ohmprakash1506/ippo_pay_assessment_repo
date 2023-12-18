@@ -7,7 +7,7 @@ class UserDataService {
     }
   
     get(id) {
-      return httpService.get(`/tutorials/${id}`);
+      return httpService.get(`/user/${id}`);
     }
   
     create(data) {
@@ -16,19 +16,11 @@ class UserDataService {
     }
   
     update(id, data) {
-      return httpService.put(`/tutorials/${id}`, data);
+      return httpService.put(`/update/${id}`, data);
     }
   
     delete(id) {
-      return httpService.delete(`/tutorials/${id}`);
-    }
-  
-    deleteAll() {
-      return httpService.delete(`/tutorials`);
-    }
-  
-    findByUser(title) {
-      return httpService.get(`/tutorials?title=${title}`);
+      return httpService.delete(`/delete/${id}`);
     }
   }
   

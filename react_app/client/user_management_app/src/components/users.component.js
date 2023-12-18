@@ -1,114 +1,26 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import UserDataService from "../service/user.service";
-import { Router } from "../common/router";
 
-class User extends Component {
+export default class UserDetails extends Component {
   constructor(props) {
     super(props);
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeEmailId = this.onChangeEmailId.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangeContact = this.onChangeContact.bind(this);
-    this.onChangeDateOfbirth = this.onChangeDateOfbirth.bind(this);
-    this.onChangeAge = this.onChangeAge.bind(this);
-    this.getUser = this.getUser.bind(this);
-    this.updateUser = this.updateUser.bind(this);
-    this.deleteUser = this.deleteUser.bind(this);
 
     this.state = {
       currentUser: {
-        id: null,
+        _id: "",
         name: "",
-        emailId: "",
+        emailID: "",
         password: "",
         contact: "",
         dateOfBirth: "",
         age: "",
       },
-      message: "",
     };
   }
 
   componentDidMount() {
-    this.getUser(this.props.router.params.id);
-  }
-
-  onChangeName(e) {
-    const name = e.target.value;
-
-    this.setState((prevState) => {
-      return {
-        currentUser: {
-          ...prevState.currentUser,
-          name: name,
-        },
-      };
-    });
-  }
-
-  onChangeEmailId(e) {
-    const emailId = e.target.value;
-
-    this.setState((prevState) => {
-      return {
-        currentUser: {
-          ...prevState.currentUser,
-          emailId: emailId,
-        },
-      };
-    });
-  }
-
-  onChangePassword(e) {
-    const password = e.target.value;
-
-    this.setState((prevState) => {
-      return {
-        currentUser: {
-          ...prevState.currentUser,
-          password: password,
-        },
-      };
-    });
-  }
-
-  onChangeContact(e) {
-    const contact = e.target.value;
-
-    this.setState((prevState) => {
-      return {
-        currentUser: {
-          ...prevState.currentUser,
-          contact: contact,
-        },
-      };
-    });
-  }
-
-  onChangeDateOfbirth(e) {
-    const dateOfBirth = e.target.value;
-
-    this.setState((prevState) => {
-      return {
-        currentUser: {
-          ...prevState.currentUser,
-          dateOfBirth: dateOfBirth,
-        },
-      };
-    });
-  }
-
-  onChangeAge(e) {
-    const age = e.target.value;
-
-    this.setState((prevState) => {
-      return {
-        currentUser: {
-          ...prevState.currentUser,
-          age: age,
-        },
-      };
-    });
+    this.getUser(this.props.match.params._id);
   }
 
   getUser(id) {
@@ -124,113 +36,159 @@ class User extends Component {
       });
   }
 
-  updateUser() {
-    UserDataService.update(this.state.currentUser.id, this.state.currentUser)
-      .then((response) => {
-        console.log(response.data);
-        this.setState({
-          message: `the data is updated successfully`,
-        });
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState((prevState) => ({
+      currentUser: {
+        ...prevState.currentUser,
+        [name]: value,
+      },
+    }));
+  };
+
+  handleUpdate = () => {
+    const { _id, name, emailID, password, contact, dateOfBirth, age } =
+      this.state.currentUser;
+
+    const data = {
+      name,
+      emailID,
+      password,
+      contact,
+      dateOfBirth,
+      age,
+    };
+
+    UserDataService.update(_id, data)
+      .then(() => {
+        this.props.history.push("/user-list");
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
-  deleteUser() {
-    UserDataService.delete(this.state.currentUser.id)
-      .then((response) => {})
-      .catch(error =>{
-        console.log(error)
+  handleDelete = () => {
+    const { _id } = this.state.currentUser;
+
+    UserDataService.delete(_id)
+      .then(() => {
+        this.props.history.push("/user-list");
+      })
+      .catch((error) => {
+        console.log(error);
       });
-  }
+  };
+
+  handleCancel = () => {
+    this.props.history.push("/user-list");
+  };
 
   render() {
-    const {currentUser} = this.state
+    const { currentUser } = this.state;
+
     return (
-      <div>
-        {currentUser? (
-          <div className="edit-form">
-            <h3>Users Details</h3>
-            <form>
-              <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input
-                type="text"
-                className="form-control"
-                id="name"
-                value={currentUser.name}
-                onChange={this.onChangeName} 
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="emailId">Email ID</label>
-                <input
-                type="text"
-                className="form-control"
-                id="emailId"
-                value={currentUser.emailId}
-                onChange={this.onChangeEmailId} 
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="contact">Contact</label>
-                <input
-                type="text"
-                className="form-control"
-                id="contact"
-                value={currentUser.contact}
-                onChange={this.onChangeContact} 
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="dateOfBirth">Date Of Birth</label>
-                <input
-                type="text"
-                className="form-control"
-                id="dateOfbirth"
-                value={currentUser.dateOfBirth}
-                onChange={this.onChangeDateOfbirth} 
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="age">Age</label>
-                <input
-                type="text"
-                className="form-control"
-                id="age"
-                value={currentUser.age}
-                onChange={this.onChangeAge} 
-                />
-              </div>
-            </form>
+      <div className="container">
+        <h2>User Details</h2>
+        <form>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">
+              Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              name="name"
+              value={currentUser.name}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="emailID" className="form-label">
+              Email ID
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="emailID"
+              name="emailID"
+              value={currentUser.emailID}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="contact" className="form-label">
+              Contact
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="contact"
+              name="contact"
+              value={currentUser.contact}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="dateOfBirth" className="form-label">
+              Date of Birth
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="dateOfBirth"
+              name="dateOfBirth"
+              value={currentUser.dateOfBirth}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="age" className="form-label">
+              Age
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="age"
+              name="age"
+              value={currentUser.age}
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <div className="d-grid gap-2">
             <button
               type="button"
-              className="btn btn-success"
-              onClick={this.updateUser}
+              className="btn btn-primary"
+              onClick={this.handleUpdate}
             >
-              Update
+              Edit
             </button>
+          </div>
+          <div className="d-grid gap-2 mt-2">
             <button
               type="button"
               className="btn btn-danger"
-              onClick={this.deleteUser}
+              onClick={this.handleDelete}
             >
               Delete
             </button>
-            <div className="mt-3">
-              <p>{this.state.message}</p>
-            </div>
           </div>
-        ):(
-          <div>
-            <br />
-            <p>Please click on a User</p>
+          <div className="d-grid gap-2 mt-2">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={this.handleCancel}
+            >
+              Cancel
+            </button>
           </div>
-        )}
+        </form>
+        <Link to={"/user-list"} className="btn btn-link mt-3">
+          Back to User List
+        </Link>
       </div>
     );
   }
 }
-
-export default Router(User);

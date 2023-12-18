@@ -34,7 +34,7 @@ export default class App extends Component {
             <Route path="/" element={<UsersList/>} />
             <Route path="/users_list" element={<UsersList/>} />
             <Route path="/add_user" element={<AddUser/>} />
-            <Route path="/users/:id" element={<User/>} />
+            <Route path="/users/:_id" element={<User/>} />
           </Routes>
         </div>
       </div>

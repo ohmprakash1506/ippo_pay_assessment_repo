@@ -79,7 +79,7 @@ export default class UsersList extends Component {
               {filteredUsers.map((user) => (
                 <tr key={user._id}>
                   <td>
-                    <Link to={`/user-details/${user._id}`}>{user.name}</Link>
+                    <Link to={`/users/:_${user._id}`}>{user.name}</Link>
                   </td>
                   <td>{user.emailID}</td>
                   <td>{user.contact}</td>
