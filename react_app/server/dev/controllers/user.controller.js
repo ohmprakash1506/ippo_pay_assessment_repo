@@ -197,14 +197,6 @@ var User = /** @class */ (function () {
                 }
             });
         }); };
-        this.deleteAll = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                try {
-                }
-                catch (error) { }
-                return [2 /*return*/];
-            });
-        }); };
     }
     return User;
 }());
