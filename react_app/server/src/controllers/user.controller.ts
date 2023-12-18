@@ -24,6 +24,23 @@ export default class User {
     }
   };
 
+  userId = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const userData = await userService.getUser(id).then((data: any) => {
+        return data;
+      });
+      const status = httpStatusCode.OK;
+      const message = `Users found successfully`;
+      const response = userData;
+      res.json(returnSuccess(status, message, response));
+    } catch (error) {
+      const message = `Error in retiving User data`;
+      const statusCode = httpStatusCode.BAD_REQUEST;
+      res.json(returnError(statusCode, message));
+    }
+  };
+
   create = async (req: Request, res: Response) => {
     try {
       const data = req.body;

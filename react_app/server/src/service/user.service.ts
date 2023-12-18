@@ -34,10 +34,10 @@ export default class UserService {
   getUser = async (data: any) => {
     try {
       const userCheck = await user.findOne({
-        username: data,
+        _id: data,
       });
       if (userCheck) {
-        return true;
+        return await user.find({ _id: data });
       }
     } catch (error) {
       const status = httpStatusCode.BAD_REQUEST;
