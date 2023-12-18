@@ -1,8 +1,9 @@
+/* eslint-disable import/no-anonymous-default-export */
 import httpService from "../common/httpService";
 
 class UserDataService {
     getAll() {
-      return httpService.get("/tutorials");
+      return httpService.get("/user/all");
     }
   
     get(id) {
@@ -10,7 +11,8 @@ class UserDataService {
     }
   
     create(data) {
-      return httpService.post("/tutorials", data);
+      console.log(`data:`,data)
+      return httpService.post("/user/create", data);
     }
   
     update(id, data) {
@@ -30,5 +32,4 @@ class UserDataService {
     }
   }
   
-  // eslint-disable-next-line import/no-anonymous-default-export
   export default new UserDataService();

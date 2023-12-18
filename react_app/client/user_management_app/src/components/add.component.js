@@ -10,13 +10,13 @@ export default class AddUser extends Component {
     this.onChangeContact = this.onChangeContact.bind(this);
     this.onChangeDateOfbirth = this.onChangeDateOfbirth.bind(this);
     this.onChangeAge = this.onChangeAge.bind(this);
-    this.saveTutorial = this.saveTutorial.bind(this);
-    this.newTutorial = this.newTutorial.bind(this);
+    this.saveUser = this.saveUser.bind(this);
+    this.newUser = this.newUser.bind(this);
 
     this.state = {
       id: null,
       name: "",
-      emailId:"",
+      emailID:"",
       password:"",
       contact:"",
       dateOfBirth:"",
@@ -33,7 +33,7 @@ export default class AddUser extends Component {
 
   onChangeEmailId(e){
     this.setState({
-        emailId: e.target.value,
+        emailID: e.target.value,
     })
   }
 
@@ -61,10 +61,10 @@ export default class AddUser extends Component {
     })
   }
 
-  saveTutorial() {
+  saveUser() {
     var data = {
-      name: this.state.lastName,
-      emailId: this.state.emailId,
+      name: this.state.name,
+      emailID: this.state.emailID,
       password: this.state.password,
       contact: this.state.contact,
       dateOfBirth: this.state.dateOfBirth,
@@ -74,8 +74,8 @@ export default class AddUser extends Component {
     UserDataService.create(data)
       .then((response) => {
         this.setState({
-            name: this.data.lastName,
-            emailId: this.data.emailId,
+            name: this.data.name,
+            emailID: this.data.emailID,
             password: this.data.password,
             contact: this.data.contact,
             dateOfBirth: this.data.dateOfBirth,
@@ -90,11 +90,11 @@ export default class AddUser extends Component {
       });
   }
 
-  newTutorial() {
+  newUser() {
     this.setState({
         id: null,
         name:"",
-        emailId:"",
+        emailID:"",
         password:"",
         contact:"",
         dateOfBirth:"",
@@ -110,7 +110,7 @@ export default class AddUser extends Component {
         {this.state.submitted ? (
           <div>
             <h4>You have submitted successfully!</h4>
-            <button className="btn btn-success" onClick={this.newTutorial}>
+            <button className="btn btn-success" onClick={this.newUser}>
               Add
             </button>
           </div>
@@ -126,8 +126,8 @@ export default class AddUser extends Component {
                 className="form-control"
                 id="name"
                 required
-                value={this.state.firstName}
-                onChange={this.onChangeFirstName}
+                value={this.state.name}
+                onChange={this.onChangeName}
                 name="name"
               />
             </div>
@@ -138,9 +138,20 @@ export default class AddUser extends Component {
                   type="text"
                   className="form-control"
                   id="emailId"
-                  value={this.state.emailId}
+                  value={this.state.emailID}
                   onChange={this.onChangeEmailId}
                   name="emailId"
+                />
+              </div>
+            <div className="form-group">
+                <label htmlFor="emailId">Password</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="password"
+                  value={this.state.password}
+                  onChange={this.onChangePassword}
+                  name="password"
                 />
               </div>
               <div className="form-group">
@@ -177,7 +188,7 @@ export default class AddUser extends Component {
                 />
               </div>
               <div>
-              <button onClick={this.saveTutorial} className="btn btn-primary">
+              <button onClick={this.saveUser} className="btn btn-primary">
               Submit
             </button>
               </div>
