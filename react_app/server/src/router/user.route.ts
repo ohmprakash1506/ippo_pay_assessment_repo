@@ -8,6 +8,5 @@ route.get("/all", user.all);
 route.post("/create", user.create);
 route.put("/update/:id", user.update);
 route.delete("/delete/:id", user.delete);
-route.delete("/delete", user.deleteAll);
 
 export default route;

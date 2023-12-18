@@ -153,7 +153,6 @@ var UserService = /** @class */ (function () {
                         _a.trys.push([0, 2, , 3]);
                         filter = id;
                         update = data;
-                        update.updatedTime = new Date();
                         return [4 /*yield*/, user_model_1.default.findByIdAndUpdate(filter, update, { new: true })];
                     case 1: return [2 /*return*/, _a.sent()];
                     case 2:

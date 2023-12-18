@@ -106,19 +106,95 @@ var User = /** @class */ (function () {
             });
         }); };
         this.update = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var id, data, checkUserId, statusCode, message, updateRecord, statusCode, message, statusCode, message, response, error_3, statusCode, message;
             return __generator(this, function (_a) {
-                try {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 5, , 6]);
+                        id = req.params.id;
+                        data = req.body;
+                        return [4 /*yield*/, userService.getUserId(id).then(function (data) {
+                                return data;
+                            })];
+                    case 1:
+                        checkUserId = _a.sent();
+                        if (!!checkUserId) return [3 /*break*/, 2];
+                        statusCode = http_status_codes_1.default.FORBIDDEN;
+                        message = "invalied user";
+                        res.json((0, APIResponseHandler_1.returnError)(statusCode, message));
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, userService
+                            .updateUser(id, data)
+                            .then(function (data) {
+                            return data;
+                        })];
+                    case 3:
+                        updateRecord = _a.sent();
+                        if (!updateRecord) {
+                            statusCode = http_status_codes_1.default.FORBIDDEN;
+                            message = "Error in updating record";
+                            res.json((0, APIResponseHandler_1.returnError)(statusCode, message));
+                        }
+                        else {
+                            statusCode = http_status_codes_1.default.OK;
+                            message = "User details updated successfully";
+                            response = updateRecord;
+                            res.json((0, APIResponseHandler_1.returnSuccess)(statusCode, message, response));
+                        }
+                        _a.label = 4;
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        error_3 = _a.sent();
+                        statusCode = http_status_codes_1.default.BAD_REQUEST;
+                        message = "Error in updating user deatils";
+                        res.json((0, APIResponseHandler_1.returnError)(statusCode, message));
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
-                catch (error) { }
-                return [2 /*return*/];
             });
         }); };
         this.delete = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var id, checkUserId, statusCode, message, user_1, statusCode, message, statusCode, message, response, error_4, statusCode, message;
             return __generator(this, function (_a) {
-                try {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        id = req.params.id;
+                        return [4 /*yield*/, userService.getUserId(id).then(function (data) {
+                                return data;
+                            })];
+                    case 1:
+                        checkUserId = _a.sent();
+                        if (!checkUserId) {
+                            statusCode = http_status_codes_1.default.FORBIDDEN;
+                            message = "invalied user";
+                            res.json((0, APIResponseHandler_1.returnError)(statusCode, message));
+                        }
+                        return [4 /*yield*/, userService.deleteUser(id).then(function (data) {
+                                return data;
+                            })];
+                    case 2:
+                        user_1 = _a.sent();
+                        if (!user_1) {
+                            statusCode = http_status_codes_1.default.FORBIDDEN;
+                            message = "Error in deleting user details";
+                            res.json((0, APIResponseHandler_1.returnError)(statusCode, message));
+                        }
+                        else {
+                            statusCode = http_status_codes_1.default.OK;
+                            message = "User details deleted successfully";
+                            response = { id: id };
+                            res.json((0, APIResponseHandler_1.returnSuccess)(statusCode, message, response));
+                        }
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_4 = _a.sent();
+                        statusCode = http_status_codes_1.default.INTERNAL_SERVER_ERROR;
+                        message = "Internal server error";
+                        res.json((0, APIResponseHandler_1.returnError)(statusCode, message));
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
-                catch (error) { }
-                return [2 /*return*/];
             });
         }); };
         this.deleteAll = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
